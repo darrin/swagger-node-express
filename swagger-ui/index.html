@@ -18,8 +18,14 @@
   <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
   <script type="text/javascript">
     $(function () {
+      // Dynamic api url originally from here: http://raibledesigns.com/rd/entry/documenting_your_spring_api_with
+      var apiUrl = window.location.protocol + "//" + window.location.host;
+      if (window.location.pathname.indexOf('/api') > 0) {
+         apiUrl += window.location.pathname.substring(0, window.location.pathname.indexOf('/api'))
+      }
+      apiUrl += "/api-docs";
       window.swaggerUi = new SwaggerUi({
-      url: "http://localhost:8002/api-docs",
+      url: apiUrl,
       dom_id: "swagger-ui-container",
       supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
       onComplete: function(swaggerApi, swaggerUi){
