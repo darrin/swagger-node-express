@@ -19,11 +19,14 @@
   <script type="text/javascript">
     $(function () {
       // Dynamic api url originally from here: http://raibledesigns.com/rd/entry/documenting_your_spring_api_with
-      var apiUrl = window.location.protocol + "//" + window.location.host;
-      if (window.location.pathname.indexOf('/api') > 0) {
-         apiUrl += window.location.pathname.substring(0, window.location.pathname.indexOf('/api'))
-      }
-      apiUrl += "/api-docs";
+      // Adjusted a bit - the only requirement is that this page is called 'index.html' and the swagger docs are
+      // in a sibling directory as the 'swagger-ui' in a place called 'api-docs'.
+      var apiDocsPath = getParameterByName('apiSpecLocation') || '/api-docs';  // Where the swagger json is located.
+      var pathname = window.location.pathname.replace(/(\/index\.html$)/, '');
+      var pathSegments = pathname.split('\/');
+      pathSegments.pop();
+      var apiUrl = window.location.protocol + "//" + window.location.host + pathSegments.join("/") + apiDocsPath;
+ 
       window.swaggerUi = new SwaggerUi({
       url: apiUrl,
       dom_id: "swagger-ui-container",
