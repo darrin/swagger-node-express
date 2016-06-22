@@ -17,6 +17,14 @@
   <script src='swagger-ui.js' type='text/javascript'></script>
   <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
   <script type="text/javascript">
+
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
     $(function () {
       // Dynamic api url originally from here: http://raibledesigns.com/rd/entry/documenting_your_spring_api_with
       // Adjusted a bit - the only requirement is that this page is called 'index.html' and the swagger docs are
